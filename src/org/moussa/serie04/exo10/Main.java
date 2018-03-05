@@ -11,9 +11,9 @@ public class Main {
 		System.out.println("'Moussa' in upper Case is : " + myUpperCase.apply("Moussa"));
 		
 		//Prend une chaine et la retourne sans modification
-		Function<String, String> copy = (String s) -> s != null ? s : "";
-		System.out.println("Copying 'Moussa' ... --> " + copy.apply("Moussa"));
-		System.out.println("Copying null string ('') ... --> " + copy.apply(null));
+		Function<String, String> identity = (String s) -> s != null ? s : "";
+		System.out.println("Copying 'Moussa' ... --> " + identity.apply("Moussa"));
+		System.out.println("Copying null string ('') ... --> " + identity.apply(null));
 		
 		Function<String, Integer> StringLength = (String s) -> s != null ? s.length() : 0;
 		System.out.println("Moussa length == " + StringLength.apply("Moussa"));
