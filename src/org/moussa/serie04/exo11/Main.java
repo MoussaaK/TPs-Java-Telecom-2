@@ -79,7 +79,8 @@ public class Main {
 
 		}*/
 
-		Collections.sort(persons, Comparator.nullsLast(comparatorPerson));
+		//Collections.sort(persons, Comparator.nullsLast(comparatorPerson));
+		persons.sort(Comparator.nullsLast(comparatorPerson));
 		System.out.println("After being sorted :\n" + persons);
 	}
 
