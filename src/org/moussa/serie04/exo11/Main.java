@@ -16,7 +16,7 @@ public class Main {
 		Function<String,String> notNull = (String s) -> s == null ? "" : s;
 		
 		
-		//Lambda pour recupérer le nom
+		//Lambda pour recupérer le nom en tenant compte du fait que Person peut etre null ou pas
 		Function<Person, String> getFirstName = p-> notNull.apply(p.getFirstName());
 		Function<Person, String> getLastName = p-> notNull.apply(p.getLastName());
 		Comparator<Person> comparatorFirstName = Comparator.comparing(getFirstName);
