@@ -14,8 +14,8 @@ public class Main {
 		System.out.println("Comparing string 'Moussa' et 'Mou', diff = " + compareString.compare("Moussa", "Mou"));
 
 		Function<String,String> notNull = (String s) -> s == null ? "" : s;
-		
-		
+
+
 		//Lambda pour recupérer le nom en tenant compte du fait que Person peut etre null ou pas
 		Function<Person, String> getFirstName = p-> notNull.apply(p.getFirstName());
 		Function<Person, String> getLastName = p-> notNull.apply(p.getLastName());
@@ -26,41 +26,41 @@ public class Main {
 		Comparator<Person> comparatorPerson = comparatorLastName.thenComparing(comparatorFirstName);
 		Comparator<Person> reverseComparatorPerson = comparatorPerson.reversed();
 
-//		//Comparateur de Person
-//		Comparator<Person> comparePerson = (person1, person2) -> {
-//			String firstName1 = null, lastName1 = null, firstName2 = null, lastName2 = null;
-//			if(person1 != null) {
-//				firstName1 = getFirstName.apply(person1); 
-//				lastName1 = getLastName.apply(person1);
-//			}
-//			if(person2 != null) {
-//				firstName2 = getFirstName.apply(person2);
-//				lastName2 = getLastName.apply(person2);
-//			}
-//			
-//			if(person1 == null && person2 != null)
-//				return 1;
-//			else if(person1 != null && person2 == null)
-//				return -1;
-//			else if(person1 == null && person2 == null)
-//				return 0;
-//			else if(lastName1.equals(lastName2))
-//				return compareString.compare(firstName1, firstName2);
-//			else
-//				return compareString.compare(lastName1, lastName2);
-//		};
-//
-//		Comparator<Person> comparePersonReverse = (person1, person2) -> {
-//			String firstName1 = getFirstName.apply(person1), 
-//					lastName1 = getLastName.apply(person1);
-//			String firstName2 = getFirstName.apply(person2),
-//					lastName2 = getLastName.apply(person2);
-//			if(firstName1.equals(firstName2))
-//				return compareString.compare(lastName1, lastName2);
-//			else
-//				return compareString.compare(firstName1, firstName2);
-//		};
-		
+		//		//Comparateur de Person
+		//		Comparator<Person> comparePerson = (person1, person2) -> {
+		//			String firstName1 = null, lastName1 = null, firstName2 = null, lastName2 = null;
+		//			if(person1 != null) {
+		//				firstName1 = getFirstName.apply(person1); 
+		//				lastName1 = getLastName.apply(person1);
+		//			}
+		//			if(person2 != null) {
+		//				firstName2 = getFirstName.apply(person2);
+		//				lastName2 = getLastName.apply(person2);
+		//			}
+		//			
+		//			if(person1 == null && person2 != null)
+		//				return 1;
+		//			else if(person1 != null && person2 == null)
+		//				return -1;
+		//			else if(person1 == null && person2 == null)
+		//				return 0;
+		//			else if(lastName1.equals(lastName2))
+		//				return compareString.compare(firstName1, firstName2);
+		//			else
+		//				return compareString.compare(lastName1, lastName2);
+		//		};
+		//
+		//		Comparator<Person> comparePersonReverse = (person1, person2) -> {
+		//			String firstName1 = getFirstName.apply(person1), 
+		//					lastName1 = getLastName.apply(person1);
+		//			String firstName2 = getFirstName.apply(person2),
+		//					lastName2 = getLastName.apply(person2);
+		//			if(firstName1.equals(firstName2))
+		//				return compareString.compare(lastName1, lastName2);
+		//			else
+		//				return compareString.compare(firstName1, firstName2);
+		//		};
+
 
 		Person person1 = new Person("Moussa", "Konate");
 		Person person2 = new Person("King", "KJ");
@@ -78,7 +78,7 @@ public class Main {
 		/*Comparator<Person> sortedList = (persons) -> {
 
 		}*/
-		
+
 		Collections.sort(persons, Comparator.nullsLast(comparatorPerson));
 		System.out.println("After being sorted :\n" + persons);
 	}
