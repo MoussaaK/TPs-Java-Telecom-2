@@ -1,22 +1,19 @@
 package org.moussa.serie05.exo12;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
-
-import org.moussa.serie03.exo8.Marin;
-import org.moussa.serie04.exo11.Person;
+import java.util.function.Predicate;
 
 public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		List<String> strings = new ArrayList<String>();
-		
+
 		strings.add("one");
 		strings.add("two");
 		strings.add("three");
@@ -29,66 +26,75 @@ public class Main {
 		strings.add("ten");
 		strings.add("eleven");
 		strings.add("twelve");
-		
-		//Affichage à l'aide de forEach qui prend un consumer
+
+		//Printing using forEach method feeded with a consumer
 		System.out.println("Strings : ");
 		strings.forEach(s -> System.out.println(s));
-		
+
 		List<String> stringsLength3 = new ArrayList<String>();
+		Predicate<String> isLength3 = s -> s.length() == 3;
+
 		for (String string : strings) {
-			if(string.length() == 3)
+			if(isLength3.test(string))
 				stringsLength3.add(string);
 		}
+
 		System.out.println("Strings of length 3 : ");
 		stringsLength3.forEach(s -> System.out.println(s));
-		
+
+
 		Function<String, Integer> getLength = s -> s == null ? 0 : s.length();
 		Comparator<String> compareLength = Comparator.comparing(getLength);
-		
-		//Collections.sort(stringsLength3, Comparator.nullsLast(compareLength));
+
 		strings.sort(compareLength);
-		
-		System.out.println("strings sorted : ");
+
+		System.out.println("strings after being sorted : ");
 		strings.forEach(s -> System.out.println(s));
-		
-		//Table de hachage 1
-		Map<Integer, List<String>> map =  new HashMap<Integer, List<String>>();
+
+		//First Map 
+		Map<Integer, List<String>> firsMap =  new HashMap<Integer, List<String>>();
 		for (String word : strings) {
-			map.computeIfAbsent(getLength.apply(word), key -> new ArrayList<String>()).add(word);
+			firsMap.computeIfAbsent(getLength.apply(word), key -> new ArrayList<String>()).add(word);
 		}
-		//forEach pour l'affichage
-		System.out.println("First Map : ");
-		map.forEach((key, value) -> System.out.println(key + " " + value));
-		
-		//lambda qui retourne la premiere Lettre sous forme de chaine
+
+		//forEach for printing
+		System.out.println("================== First Map ===================");
+		firsMap.forEach((key, value) -> System.out.println(key + " | " + value));
+
+		//lambda wich return the first letter as a string instead of a char
 		Function<String, String> getFirstLetter = s -> s == null ? "" : String.valueOf(s.charAt(0));
-		
-		//Table de hachage 2
-		Map<String, List<String>> map2 =  new HashMap<String, List<String>>();
+		//Second Map
+		Map<String, List<String>> secondMap =  new HashMap<String, List<String>>();
+
 		for (String word : strings) {
-			map2.computeIfAbsent(getFirstLetter.apply(word), key -> new ArrayList<>()).add(word);
+			secondMap.computeIfAbsent(getFirstLetter.apply(word), key -> new ArrayList<>()).add(word);
 		}
-		//forEach pour l'affichage
-		System.out.println("Second Map : ");
-		map2.forEach((key, value) -> System.out.println(key + " " + value));
-		
-		
-		Map<String, Map<Integer, List<String>>> map3 =  new HashMap<>();
+
+		//forEach for printing
+		System.out.println("================== Second Map =================== ");
+		secondMap.forEach((key, value) -> System.out.println(key + " | " + value));
+
+		//Third Map
+		Map<String, Map<Integer, List<String>>> mapWichValuesAreMap =  new HashMap<String, Map<Integer, List<String>>>();
+
 		for (String word : strings) {
-			map3.computeIfAbsent(getFirstLetter.apply(word), key -> new HashMap<>()).computeIfAbsent(getLength.apply(word), value -> new ArrayList<String>()).add(word);
+			mapWichValuesAreMap.computeIfAbsent(getFirstLetter.apply(word), key -> new HashMap<>()).computeIfAbsent(getLength.apply(word), value -> new ArrayList<String>()).add(word);
 		}
+
 		//forEach pour l'affichage
-		System.out.println("Third Map, values are also a Map : ");
-		map3.forEach((key, value) -> System.out.println(key + " " + value));
-		
-		/*Map<Integer, List<String>> mergedValue =  new HashMap<Integer, List<String>>();
+		System.out.println(" ============= Third Map, values are also a Map ============");
+		mapWichValuesAreMap.forEach((key, value) -> System.out.println(key + " | " + value));
+
+		//Last Map
+		Map<Integer, String> mapMergeValues =  new HashMap<Integer, String>();
+
 		for (String word : strings) {
-			mergedValue.merge(getLength.apply(word), word, (existingValue, addedValue) -> existingValue + "," + addedValue);
+			mapMergeValues.merge(getLength.apply(word), word, (existingValue, addedValue) -> existingValue + "," + addedValue);
 		}
+
 		//forEach pour l'affichage
-		System.out.println("Last Map : ");
-		mergedValue.forEach((key, value) -> System.out.println(key + " " + value));*/
-		
+		System.out.println("================= Last Map ===================");
+		mapMergeValues.forEach((key, value) -> System.out.println(key + " | " + value));
 	}
 
 }
