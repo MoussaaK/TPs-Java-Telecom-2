@@ -52,9 +52,11 @@ public class Main {
 		strings.forEach(s -> System.out.println(s));
 
 		//First Map 
-		Map<Integer, List<String>> firsMap =  new HashMap<Integer, List<String>>();
+		Map<Integer, List<String>> firsMap =  new HashMap<>();
 		for (String word : strings) {
-			firsMap.computeIfAbsent(getLength.apply(word), key -> new ArrayList<String>()).add(word);
+			firsMap.computeIfAbsent(getLength.apply(word), 
+									key -> new ArrayList<String>()
+									).add(word);
 		}
 
 		//forEach for printing
@@ -67,7 +69,9 @@ public class Main {
 		Map<String, List<String>> secondMap =  new HashMap<String, List<String>>();
 
 		for (String word : strings) {
-			secondMap.computeIfAbsent(getFirstLetter.apply(word), key -> new ArrayList<>()).add(word);
+			secondMap.computeIfAbsent(getFirstLetter.apply(word), 
+									  key -> new ArrayList<>()
+									  ).add(word);
 		}
 
 		//forEach for printing
@@ -75,10 +79,14 @@ public class Main {
 		secondMap.forEach((key, value) -> System.out.println(key + " | " + value));
 
 		//Third Map
-		Map<String, Map<Integer, List<String>>> mapWichValuesAreMap =  new HashMap<String, Map<Integer, List<String>>>();
+		Map<String, Map<Integer, List<String>>> mapWichValuesAreMap =  new HashMap<>();
 
 		for (String word : strings) {
-			mapWichValuesAreMap.computeIfAbsent(getFirstLetter.apply(word), key -> new HashMap<>()).computeIfAbsent(getLength.apply(word), value -> new ArrayList<String>()).add(word);
+			mapWichValuesAreMap.computeIfAbsent(getFirstLetter.apply(word),
+												key -> new HashMap<>()
+												).computeIfAbsent(getLength.apply(word),
+																  key -> new ArrayList<String>()
+																  ).add(word);
 		}
 
 		//forEach pour l'affichage
@@ -86,10 +94,12 @@ public class Main {
 		mapWichValuesAreMap.forEach((key, value) -> System.out.println(key + " | " + value));
 
 		//Last Map
-		Map<Integer, String> mapMergeValues =  new HashMap<Integer, String>();
+		Map<Integer, String> mapMergeValues =  new HashMap<>();
 
 		for (String word : strings) {
-			mapMergeValues.merge(getLength.apply(word), word, (existingValue, addedValue) -> existingValue + "," + addedValue);
+			mapMergeValues.merge(getLength.apply(word),  //key
+								 word, 					//
+								 (existingValue, addedValue) -> existingValue + "," + addedValue);
 		}
 
 		//forEach pour l'affichage
