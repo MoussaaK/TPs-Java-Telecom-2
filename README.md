@@ -1,4 +1,4 @@
-#Réponse aux questions de la deuxième Serie d'exercices
+#Réponse aux questions
 
 Question 7 :
 	On surcharge la méthode toString pour quelle retourne nom pas la réference de l'objet instancié mais pluôt le nom, prenom et salaire donné à l'objet lors de son instanciation.
@@ -15,3 +15,7 @@ Question 10 :
 Question 11 :
 	a - Java utilise les interfaces pour réaliser ce genre de comparaison
 
+Exercice 14
+
+  Question 1 :
+	 Il comporte 20064 lines
