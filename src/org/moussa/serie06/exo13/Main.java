@@ -63,7 +63,7 @@ public class Main {
 		//
 		Map<Integer, List<String>> firstMap =  new HashMap<>();
 		firstMap = strings.stream()
-				.collect(Collectors.groupingBy(s -> s.length()));
+						  .collect(Collectors.groupingBy(s -> s.length()));
 		//forEach for printing
 		System.out.println("\n================== First Map ===================");
 		firstMap.forEach((key, value) -> System.out.println(key + " | " + value));
