@@ -13,67 +13,73 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Germinal germinal = new Germinal();
-		System.out.println("Length of the Novel : " + germinal.linesOfGerminal("7germ10.txt")
-															  .size());
+		List<String> linesOfGerminal = germinal.linesOfGerminal("7germ10.txt");
 		
-		//germinal.linesOfGerminal("7germ10.txt").forEach(System.out::println(s));
+		System.out.println("Length of the Novel : " +  linesOfGerminal.size());
 		
-		//Counting of non-empty lines
-		long countEmptyLines = germinal.linesOfGerminal("7germ10.txt")
-							 		   .stream().filter(s -> !s.isEmpty())
+		//Counting non-empty lines
+		long countEmptyLines =  linesOfGerminal
+							 		   .stream()
+							 		   .filter(s -> !s.isEmpty())
 							 		   .count();
 		System.out.println(countEmptyLines + " non-empty lines are in the file");
 		
-		//Function<String, Stream<String>> spliter = s -> Pattern.compile(" ").splitAsStream(s);
-		BiFunction<Stream<String>, String, Long> OccurenceInStream = 
-				((stream, word) -> stream.map(String::toLowerCase)
-										 .filter(s-> !s.isEmpty())
-										 .filter(s -> s.contains("bonjour"))
-										 .count());
-		
-		BiFunction<String, String, Integer> OccurenceInStreamBis = 
-				(string,word)->string.concat(",")
+		//BiFunction to get the occurrences of a word in string
+		BiFunction<String, String, Integer> OccurencesInStream = 
+			 (string, word) -> string.concat(",")
 									 .replaceAll(" ", "")
 									 .toLowerCase()
 									 .split(word).length-1;
-		
-		long countBonjour = OccurenceInStreamBis.apply(germinal.linesOfGerminal("7germ10.txt").toString(), "bonjour");
-		System.out.println(countBonjour + " Bonjour(s) is in the file doing by first BiFunction");
-		
+				
+		//Two Manners of counting 'Bonjour'
+		long countBonjour = OccurencesInStream.apply(linesOfGerminal.toString(), "bonjour");
 		Integer countBonjourBis = 
-				germinal.linesOfGerminal("7germ10.txt").stream()
-						.map(s->OccurenceInStreamBis.apply(s, "bonjour"))
-						.reduce(0, (int1,int2)->int1+int2)
-						.intValue();
-		System.out.println(countBonjourBis + " Bonjour(s) is in the file doing by second BiFunction");
+				linesOfGerminal.stream()
+							   .map(s -> OccurencesInStream.apply(s, "bonjour"))
+							   .reduce(0, (int1,int2) -> int1+int2)
+							   .intValue();
+		
+		System.out.println(countBonjour + " Bonjour(s) is(are) in the file");
+		System.out.println(countBonjourBis + " Bonjour(s) is(are) in the file doing countBonjourBis");
 		
 		//Convert String to Stream of String
 		Function<String, Stream<Character>> streamOfChar = (s -> s.chars()
 																  .mapToObj(c -> (char)c));
-		//Transform germinal's Stream of String to Stream of Character
-		Stream<Character> germinalStreamOfChar = streamOfChar.apply(germinal.linesOfGerminal("7germ10.txt")
-																			.toString());
-		
 		//Second Function to convert Stream of string to Stream of Char 
 		Function<String, Stream<Character>> streamOfCharBis = 
 				(s) -> Arrays.stream(s.split(""))
 							 .filter(i->!i.isEmpty())
 							 .map(i->i.charAt(0));
-				
+
 		//Transform germinal's Stream of String to Stream of Character
+		Stream<Character> germinalStreamOfChar = streamOfChar.apply(linesOfGerminal
+																	.toString());
 		Stream<Character> germinalStreamOfChar2 = 
-				germinal.linesOfGerminal("7germ10.txt").stream()
-													   .map(s->streamOfChar.apply(s))
-													   .flatMap(Function.identity());
-		//List of germinal char
+				linesOfGerminal.stream()
+							   .map(s->streamOfChar.apply(s))
+							   .flatMap(Function.identity());
+		
+		//List of Germinal characters sorted
 		Stream<Character> sortedGerminalStreamOfChar = germinalStreamOfChar.distinct()
 																		   .sorted();
-		System.out.println(" List of all char of germinal as ");
+		
+		System.out.println(" List of all char of germinal as Stream of character");
 		sortedGerminalStreamOfChar.forEach(s->System.out.println(s));
-		//String onlyLetters = sortedGerminalStreamOfChar.map(s-> s + "");
+		
+		//Using Map-Filter-Reduce approach to get char that are not letters
+		System.out.println("String wich are not letters : ");
+		String notLetters = germinalStreamOfChar2.distinct()
+												  .filter(s -> String.valueOf(s)
+																	 .matches("[^a-zA-Z]"))
+												  .map(s -> s + "")
+												  .reduce("", (s1, s2) -> (s1 + s2));
+		System.out.println(notLetters);
+		
+		//Given Pattern
 		BiFunction<String, String, Stream<String>> splitWordWithPattern = 
 				(line, pattern) -> Pattern.compile("[" + pattern + "]").splitAsStream(line);
-				
+		
+		//Number of word inside the novel
 		
 	}
 	
