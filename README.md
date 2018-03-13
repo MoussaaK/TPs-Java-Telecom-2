@@ -19,3 +19,6 @@ Exercice 14
 
   Question 1 :
 	 Il comporte 20064 lines
+  Question 2 :
+  	 Il y a 16585 lignes non vides
+	 
