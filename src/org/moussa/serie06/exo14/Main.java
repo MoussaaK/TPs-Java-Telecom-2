@@ -1,6 +1,5 @@
 package org.moussa.serie06.exo14;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.BiFunction;
@@ -13,6 +12,7 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Germinal germinal = new Germinal();
+		//List<String> linesOfGerminal = germinal.readLinesFrom("mini-germinal.txt");
 		List<String> linesOfGerminal = germinal.linesOfGerminal("7germ10.txt");
 		
 		System.out.println("Length of the Novel : " +  linesOfGerminal.size());
@@ -43,13 +43,13 @@ public class Main {
 		System.out.println(countBonjourBis + " Bonjour(s) is(are) in the file doing countBonjourBis");
 		
 		//Convert String to Stream of String
-		Function<String, Stream<Character>> streamOfChar = (s -> s.chars()
-																  .mapToObj(c -> (char)c));
+		Function<String, Stream<Character>> streamOfChar = s -> s.chars()
+																 .mapToObj(c -> (char)c);
 		//Second Function to convert Stream of string to Stream of Char 
 		Function<String, Stream<Character>> streamOfCharBis = 
-				(s) -> Arrays.stream(s.split(""))
-							 .filter(i->!i.isEmpty())
-							 .map(i->i.charAt(0));
+				s -> Arrays.stream(s.split(""))
+						   .filter(i->!i.isEmpty())
+						   .map(i->i.charAt(0));
 
 		//Transform germinal's Stream of String to Stream of Character
 		Stream<Character> germinalStreamOfChar = streamOfChar.apply(linesOfGerminal
@@ -77,10 +77,16 @@ public class Main {
 		
 		//Given Pattern
 		BiFunction<String, String, Stream<String>> splitWordWithPattern = 
-				(line, pattern) -> Pattern.compile("[" + pattern + "]").splitAsStream(line);
+				(line, pattern) -> Pattern.compile(pattern).splitAsStream(line);
 		
-		//Number of word inside the novel
-		
+		//Number of words inside the novel
+		splitWordWithPattern
+			.apply(linesOfGerminal.toString(), "[" + notLetters.substring(0, 22) + "]").distinct().forEach(System.out::println);
+		System.out.println("Number of words ; " + splitWordWithPattern
+												  .apply(linesOfGerminal.toString(), "[" + notLetters.substring(0, 22) + "]")
+												  .filter(i->!i.isEmpty())
+												  .count());		
+				  						
 	}
 	
 }
