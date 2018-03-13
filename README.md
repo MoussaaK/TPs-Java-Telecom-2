@@ -21,4 +21,29 @@ Exercice 14
 	 Il comporte 20064 lines
   Question 2 :
   	 Il y a 16585 lignes non vides
+  	 les caractères suivants ne sont pas des lettres :
+  	 	!
+		"
+		#
+		$
+		%
+		'
+		(
+		)
+		*
+		+
+		,
+		-
+		.
+		/
+		:
+		;
+		<
+		>
+		?
+		@
+		[
+		]
+		_
+		
 	 
