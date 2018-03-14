@@ -1,6 +1,7 @@
 package org.moussa.serie06.exo14;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -70,22 +71,41 @@ public class Main {
 		System.out.println("String wich are not letters : ");
 		String notLetters = germinalStreamOfChar2.distinct()
 												  .filter(s -> String.valueOf(s)
-																	 .matches("[^a-zA-Z]"))
+																	 .matches("[^a-zA-Z\\-]"))
 												  .map(s -> s + "")
 												  .reduce("", (s1, s2) -> (s1 + s2));
+		notLetters += "\\\\-";
 		System.out.println(notLetters);
 		
 		//Given Pattern
 		BiFunction<String, String, Stream<String>> splitWordWithPattern = 
-				(line, pattern) -> Pattern.compile(pattern).splitAsStream(line);
+				(line, pattern) -> Pattern.compile("[" + pattern + "]").splitAsStream(line);
 		
 		//Number of words inside the novel
 		splitWordWithPattern
-			.apply(linesOfGerminal.toString(), "[" + notLetters.substring(0, 22) + "]").distinct().forEach(System.out::println);
-		System.out.println("Number of words ; " + splitWordWithPattern
-												  .apply(linesOfGerminal.toString(), "[" + notLetters.substring(0, 22) + "]")
+			.apply(linesOfGerminal.toString(), notLetters).distinct().forEach(System.out::println);
+		//Number of word
+		System.out.println("Number of words : " + splitWordWithPattern
+												  .apply(linesOfGerminal.toString(), notLetters)
 												  .filter(i->!i.isEmpty())
-												  .count());		
+												  .count());
+		
+		//Number of distinct words
+		System.out.println("Number of distinct words : " + splitWordWithPattern
+				  .apply(linesOfGerminal.toString(), notLetters)
+				  .distinct()
+				  .filter(i->!i.isEmpty())
+				  .count());
+		
+		//Length of longest words
+		System.out.println("Length of longest words : " + splitWordWithPattern
+				  .apply(linesOfGerminal.toString(), notLetters)
+				  .distinct()
+				  .filter(i->!i.isEmpty())
+				  .mapToInt(s->s.length())
+				  .sorted()
+				  .summaryStatistics()
+				  );
 				  						
 	}
 	
