@@ -98,14 +98,31 @@ public class Main {
 				  .count());
 		
 		//Length of longest words
-		System.out.println("Length of longest words : " + splitWordWithPattern
-				  .apply(linesOfGerminal.toString(), notLetters)
-				  .distinct()
-				  .filter(i->!i.isEmpty())
-				  .mapToInt(s->s.length())
-				  .sorted()
-				  .summaryStatistics()
-				  );
+		int longestWord = splitWordWithPattern
+							  .apply(linesOfGerminal.toString(), notLetters)
+							  .distinct()
+							  .filter(i->!i.isEmpty())
+							  .mapToInt(s->s.length())
+							  .max().getAsInt();
+		System.out.println("Length of longest words : " + longestWord);
+		
+		//Count word of length 'longestWord'
+		Long CountLongestWord = splitWordWithPattern
+								  .apply(linesOfGerminal.toString(), notLetters)
+								  .distinct()
+								  .filter(i->!i.isEmpty())
+								  .filter(s -> (s.length() == longestWord))
+								  .count();
+		System.out.println("Count words of length 19 : " + CountLongestWord);
+		System.out.println("Those word are : ");
+		splitWordWithPattern
+			  .apply(linesOfGerminal.toString(), notLetters)
+			  .distinct()
+			  .filter(i->!i.isEmpty())
+			  .filter(s -> (s.length() == longestWord)).forEach(s -> System.out.println(s));
+		
+		//Histogram of words which length are greater than 2
+		
 				  						
 	}
 	
