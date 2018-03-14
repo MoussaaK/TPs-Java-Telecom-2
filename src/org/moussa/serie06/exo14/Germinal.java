@@ -25,10 +25,10 @@ public class Germinal {
 	
 	public List<String> linesOfGerminal(String fileName) {
 		List<String> lines = readLinesFrom(fileName);
-		lines.stream()
-			 .skip(70)
-			 .limit(lines.size() - 322)
-			 .collect(Collectors.toList());
+		lines = lines.stream()
+				.limit(lines.size() - 322)
+				.skip(70)
+			 	.collect(Collectors.toList());
 		
 		return lines;
 	}
