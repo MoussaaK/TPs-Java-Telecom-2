@@ -9,9 +9,9 @@ import java.util.stream.Stream;
 
 
 public class Germinal {
-	
-	
-	
+
+
+
 	public List<String> readLinesFrom(String fileName) {
 		Path path = Paths.get(fileName);
 		try (Stream<String> lines = Files.lines(path)) {
@@ -22,14 +22,13 @@ public class Germinal {
 		}
 		return null;
 	}
-	
+
 	public List<String> linesOfGerminal(String fileName) {
 		List<String> lines = readLinesFrom(fileName);
-		lines = lines.stream()
+
+		return lines.stream()
 				.limit(lines.size() - 322)
 				.skip(70)
-			 	.collect(Collectors.toList());
-		
-		return lines;
+				.collect(Collectors.toList());
 	}
 }
