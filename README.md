@@ -15,11 +15,13 @@ Question 10 :
 Question 11 :
 	a - Java utilise les interfaces pour réaliser ce genre de comparaison
 
-Exercice 14 (Serie 06)__
+Exercice 14 (Serie 06)
+
+
 Question 1 :
-	 Il comporte 20064 lines
+	Il comporte 20064 lines
 Question 2 :
-  	 Il y a 16585 lignes non vides
+	Il y a 16585 lignes non vides
 Question 3 :
   	Le mot bonjour apparait 7 fois
 Question 6
@@ -27,9 +29,9 @@ Question 6
 Question 7 :
   	Germinal comporte 177183 mots, 13933 mots différents
 Question 8 :
-  	La longeur du mot le plus long utiiisé est 19
-  		Germinal contient 2 mots de cette longeur
-  		Ces mots sont : "revolutionnairement" et "proportionnellement"
+	La longeur du mot le plus long utiiisé est 19
+	Germinal contient 2 mots de cette longeur
+	Ces mots sont : "revolutionnairement" et "proportionnellement"
 Question 9 :
   	La longueur de mot la plus fréquente est 7
   	2403 mots ont cette longeur
