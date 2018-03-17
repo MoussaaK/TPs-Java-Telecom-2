@@ -15,7 +15,7 @@ Question 10 :
 Question 11 :
 	a - Java utilise les interfaces pour réaliser ce genre de comparaison
 
-Exercice 14 (Serie 06)
+Exercice 14 (Serie 06)__
 Question 1 :
 	 Il comporte 20064 lines
 Question 2 :
