@@ -19,10 +19,10 @@ Exercice 14 (Serie 06)
 
 
 Question 1 :
-	Il comporte 20064 lines
+	Il comporte 19672 lines
 	
 Question 2 :
-	Il y a 16585 lignes non vides
+	Il y a 16299 lignes non vides
 	
 Question 3 :
 	Le mot bonjour apparait 7 fois
