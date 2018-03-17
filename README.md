@@ -20,21 +20,30 @@ Exercice 14 (Serie 06)
 
 Question 1 :
 	Il comporte 20064 lines
+	
 Question 2 :
 	Il y a 16585 lignes non vides
+	
 Question 3 :
 	Le mot bonjour apparait 7 fois
+	
 Question 6
 	les caractères suivants ne sont pas des lettres : [,'.;:?!16<>2570849_*\\-]
+	
 Question 7 :
 	Germinal comporte 177183 mots, 13933 mots différents
+	
 Question 8 :
 	La longeur du mot le plus long utiiisé est 19
 	Germinal contient 2 mots de cette longeur
 	Ces mots sont : "revolutionnairement" et "proportionnellement"
+	
 Question 9 :
 	La longueur de mot la plus fréquente est 7
   	2403 mots ont cette longeur
+  	
 Question 10 :
   	La longeur du mot median est 10
   	et 1347 mots ont cette longeur.
+
+  	
