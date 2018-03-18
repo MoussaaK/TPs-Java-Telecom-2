@@ -1,0 +1,5 @@
+#Fichier texte contenant quelques instances de la classe Person
+#lastName, firstName, age
+Satya, Nadella, 50
+James, Gosling, 62
+Eric, Ries, 36
