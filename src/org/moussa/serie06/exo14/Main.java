@@ -2,8 +2,10 @@ package org.moussa.serie06.exo14;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.regex.Pattern;
@@ -152,18 +154,23 @@ public class Main {
 		histogramOnWordsLength.forEach((key, value) -> System.out.println(key + "\t|\t" + value + "\t|"));
 		System.out.println("-------------------------");
 		
-		/*Function<Map<Integer, Long>, Long> median = map -> {
-			Iterator<Integer> iterator = map.keySet().iterator();
-			Long key = null;
-			while (iterator.hasNext()) {
-				if((map.get(iterator) % ((map.size() - 1))/2) == 0)
-					key = map.get(iterator);
+		//For computing the median value of an odd list
+		Function<Map<Integer, Long>, Long> medianOfOddList = map -> {
+			Long medianKey = null;
+			int position = map.size()/2 + 1, count = 0;
+			Set<Integer> keys = map.keySet();
+			for (Integer key : keys) {
+				count++;
+				if(position == count)
+					medianKey = key.longValue();
 			}
-			return key;
-		} ;*/
+			return medianKey;
+		};
 		
-		System.out.println("The median is 10 : and  " 
-							+ histogramOnWordsLength.get(10) + 
-							" words have this same length.");
+		Long median = medianOfOddList.apply(histogramOnWordsLength);
+		System.out.println("\nThe median is " + median
+											+ " : and  " 
+											+ histogramOnWordsLength.get(median.intValue()) 
+											+ " words have this same length.");
 	}
 }
