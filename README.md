@@ -49,5 +49,9 @@ Question 10 :
 ##Exercice 15 (Série 07)
 
 Question 1 :
-	L'interface Stream étend AutoClosable => 
+	L'interface Stream étend AutoClosable => AutoClosable est la superinterface de stream
+	On en deduit que la fermeture d'un stream ouvert sur un fichier ne necessite pas un apple à la méthode close
+	
+Question 2 :
+	
   	
