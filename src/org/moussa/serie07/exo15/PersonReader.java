@@ -48,6 +48,6 @@ public class PersonReader {
 			e.printStackTrace();
 		}
 
-		return listOfPersonBis;
+		return listOfPerson;
 	}
 }
