@@ -15,7 +15,7 @@ Question 10 :
 Question 11 :
 	a - Java utilise les interfaces pour réaliser ce genre de comparaison
 
-Exercice 14 (Serie 06)
+##Exercice 14 (Serie 06)
 
 
 Question 1 :
@@ -46,4 +46,8 @@ Question 10 :
   	La longeur du mot median est 10
   	et 1347 mots ont cette longeur.
 
+##Exercice 15 (Série 07)
+
+Question 1 :
+	L'interface Stream étend AutoClosable => 
   	
