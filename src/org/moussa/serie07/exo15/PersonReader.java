@@ -14,6 +14,7 @@ import java.util.stream.Stream;
 public class PersonReader {
 	
 	Predicate<String> isComment = string -> string.startsWith("#");
+	Predicate<String> isNotEmpty = string -> !string.isEmpty();
 	
 	Function<String, Stream<Person>> lineToStreamPerson = 
 			string -> isComment.test(string) ? Stream.empty() 
@@ -34,7 +35,7 @@ public class PersonReader {
 		try (FileReader fr = new FileReader(file);
 				BufferedReader br = new BufferedReader(fr);) {
 
-				listOfPerson = br.lines().filter(s -> !isComment.test(s))
+				listOfPerson = br.lines().filter(s -> !isComment.test(s) && isNotEmpty.test(s))
 										 .map(lineToPerson)
 										 .collect(Collectors.toList());
 				
