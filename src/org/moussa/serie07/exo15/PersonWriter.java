@@ -10,9 +10,9 @@ import java.util.function.Function;
 public class PersonWriter {
 	
 	Function<Person, String> personToLine =
-			(person) -> "\n" + person.getFirstName() + ","
-													 + person.getLastName() + ","
-													 + person.getAge();
+			person -> "\n" + person.getFirstName() + ", "
+												   + person.getLastName() + ", "
+												   + person.getAge();
 		
 	public void write(List<Person> people, String fileName) throws IOException {
 		
