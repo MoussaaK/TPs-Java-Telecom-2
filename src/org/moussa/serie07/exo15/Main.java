@@ -1,21 +1,27 @@
 package org.moussa.serie07.exo15;
 
-import java.util.function.Function;
+import java.io.IOException;
+import java.util.List;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		
-		 //Function which convert a line of file into instance of Person
-		//Exceptions will be handled when calling this function
-		Function<String, Person> lineToPerson = 
-				(string) -> new Person(string.split(", ")[0],
-									   string.split(", ")[1],
-								       Integer.parseInt(string.split(", ")[2]));
+		PersonReader pr = new PersonReader();
+		PersonWriter pw = new PersonWriter();
 		
-		Person p = lineToPerson.apply("Moussa, Konate, 15");
-		System.out.println(p);
+		List<Person> listOfPerson = null;
+		try {
+			listOfPerson = pr.read("Person.txt");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		listOfPerson.forEach(s -> System.out.println(s));
+		
+		//added the already read listOfPerson to the File 
+		pw.write(listOfPerson, "Person.txt");
 	}
 
 }
