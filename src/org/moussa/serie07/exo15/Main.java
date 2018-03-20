@@ -14,7 +14,7 @@ public class Main {
 		
 		List<Person> listOfPerson = null;
 		try {
-			listOfPerson = pr.read("Person.txt");
+			listOfPerson = pr.read("files/Person.txt");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
