@@ -1,9 +1,9 @@
 package org.moussa.serie07.exo15;
 
 public class Person {
-	public String firstName;
-	public String lastName;
-	public int age;
+	private String firstName;
+	private String lastName;
+	private int age;
 	
 	public Person(String firstName, String lastName) {
 		super();
