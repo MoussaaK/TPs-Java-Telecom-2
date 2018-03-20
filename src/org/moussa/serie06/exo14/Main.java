@@ -18,8 +18,8 @@ public class Main {
 		// TODO Auto-generated method stub
 		
 		Germinal germinal = new Germinal();
-		//List<String> linesOfGerminal = germinal.readLinesFrom("mini-germinal.txt");
-		List<String> linesOfGerminal = germinal.linesOfGerminal("7germ10.txt");
+		//List<String> linesOfGerminal = germinal.readLinesFrom("files/mini-germinal.txt");
+		List<String> linesOfGerminal = germinal.linesOfGerminal("files/7germ10.txt");
 		
 		System.out.println("Length of the Novel : " +  linesOfGerminal.size());
 		
