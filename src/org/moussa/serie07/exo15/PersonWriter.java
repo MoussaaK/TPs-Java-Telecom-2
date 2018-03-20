@@ -18,9 +18,9 @@ public class PersonWriter {
 		
 		File file = new File(fileName);
 		try (FileWriter fr = new FileWriter(file, true);
-				BufferedWriter br = new BufferedWriter(fr);) {
+				BufferedWriter bw = new BufferedWriter(fr);) {
 			for (Person person : people) {
-				br.write(personToLine.apply(person));
+				bw.write(personToLine.apply(person));
 			}
 			
 		} catch (IOException e) {
