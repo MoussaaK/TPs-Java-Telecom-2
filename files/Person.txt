@@ -3,7 +3,4 @@
 Satya, Nadella, 50
 James, Gosling, 62
 Eric, Ries, 36
-######, ######, 0
-Sundar, Punchai, 45
-Jeff, Bezos, 54
-Andi, Rubin, 55
+
