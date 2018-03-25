@@ -32,11 +32,20 @@ public class PersonWriter {
 		try (FileOutputStream fos = new FileOutputStream(file, true);
 			 BufferedOutputStream bos = new BufferedOutputStream(fos);) {
 			bos.write(number);
-			for (Person person : people) {
+			/*for (Person person : people) {
 				byte [] bytes = personToBytes.apply(person);
 				bos.write(bytes);
-				bos.flush();
-			}
+				//bos.flush(); handled by try-with-resources pattern
+			}*/
+			people.stream().map(personToBytes)
+						   .forEach(person -> {
+							   try {
+								   bos.write(person);
+							   } catch (IOException e) {
+								   // TODO Auto-generated catch block
+								   e.printStackTrace();
+							   }});
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
