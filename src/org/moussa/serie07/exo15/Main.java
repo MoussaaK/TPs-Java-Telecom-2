@@ -28,11 +28,11 @@ public class Main {
 		newListOfPerson.add(new Person("Andi", "Rubin", 55));
 		
 		//added the already read listOfPerson to the File 
-		pw.write(newListOfPerson, "Person.txt");
+		pw.write(newListOfPerson, "files/Person.txt");
 		
 		//
 		try {
-			listOfPerson = pr.read("Person.txt");
+			listOfPerson = pr.read("files/Person.txt");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
