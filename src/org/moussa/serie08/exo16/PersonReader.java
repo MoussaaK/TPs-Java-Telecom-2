@@ -16,12 +16,21 @@ public class PersonReader {
 		try (FileInputStream fis = new FileInputStream(file);
 			 DataInputStream dis = new DataInputStream(fis);) {
 			
-			int number = dis.read();
-			//byte[] buffer = new byte[1024];
+			int numberOfPerson = dis.read();
+			//System.out.println(numberOfPerson + " Persons to read");
 			
+			while(numberOfPerson > 0) {
+				int age = dis.readInt();
+				String lastName = dis.readUTF();
+				String firstName = dis.readUTF();
+				
+				people.add(new Person(firstName, lastName, age));
+				numberOfPerson--;
+			}
 		} catch (IOException e) {
 			// TODO: handle exception
+			e.printStackTrace();
 		}
-		return null;
+		return people;
 	}
 }
