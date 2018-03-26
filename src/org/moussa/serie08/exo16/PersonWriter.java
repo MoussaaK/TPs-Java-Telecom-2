@@ -28,8 +28,9 @@ public class PersonWriter {
 	public void writeBinaryFields(List<Person> people, String fileName) {
 		File file = new File(fileName);
 		try (FileOutputStream fos = new FileOutputStream(file, true);
+				DataOutputStream dos = new DataOutputStream(fos);
 				BufferedOutputStream bos = new BufferedOutputStream(fos);) {
-			bos.write(people.size());
+			dos.writeInt(people.size());
 			/*for (Person person : people) {
 				byte [] bytes = personToBytes.apply(person);
 				bos.write(bytes);
