@@ -16,7 +16,7 @@ public class PersonReader {
 		try (FileInputStream fis = new FileInputStream(file);
 			 DataInputStream dis = new DataInputStream(fis);) {
 			
-			int numberOfPerson = dis.read();
+			int numberOfPerson = dis.readInt();
 			//System.out.println(numberOfPerson + " Persons to read");
 			
 			for(int count = numberOfPerson; count > 0; count--) {
