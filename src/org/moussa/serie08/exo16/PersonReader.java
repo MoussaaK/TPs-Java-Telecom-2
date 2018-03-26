@@ -19,13 +19,13 @@ public class PersonReader {
 			int numberOfPerson = dis.read();
 			//System.out.println(numberOfPerson + " Persons to read");
 			
-			while(numberOfPerson > 0) {
+			for(int count = numberOfPerson; count > 0; count--) {
 				int age = dis.readInt();
 				String lastName = dis.readUTF();
 				String firstName = dis.readUTF();
-				
+
 				people.add(new Person(firstName, lastName, age));
-				numberOfPerson--;
+				//numberOfPerson--;
 			}
 		} catch (IOException e) {
 			// TODO: handle exception
