@@ -49,7 +49,7 @@ Question 10 :
 ##Exercice 15 (Série 07)
 
 Question 1 :
-	L'interface Stream étend AutoClosable => AutoClosable est la superinterface de stream
+	L'interface Stream étend **AutoClosable** => AutoClosable est la superinterface de stream
 	On en deduit que la fermeture d'un stream ouvert sur un fichier ne necessite pas un apple à la méthode close
 	
 Question 2 : 
@@ -57,7 +57,7 @@ Question 2 :
 ##Exercice 16 (Série 08)
 
 Question 1 :
-	a - La Classe ByteArrayOutputStream permet de créer de sbuffer en mémoire
+	a - La Classe **ByteArrayOutputStream** permet de créer de sbuffer en mémoire
 	b - On doit utiliser le flux DataOutputStream pour écrire des types primitifs en Java
 
 Question 3 : 
@@ -67,12 +67,12 @@ Question 3 :
 ##Exercice 17 (Série 08)		
 	
 Question 1 :
-	On doit utiliser le flux ObjectOutputStream pour écrire des Objets Java dans des fichiers binaires
+	On doit utiliser le flux **ObjectOutputStream** pour écrire des Objets Java dans des fichiers binaires
 
 Question 2 :
 	On doit rendre la classe Person Seriazable, en le faisant implémenter Serializable
 	
 Question 6 :
-	Les classes sont Person, String et Integer
+	La classe est **Person**
 	
 	
