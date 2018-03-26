@@ -7,7 +7,7 @@ public class Employee extends Person{
 	 */
 	private static final long serialVersionUID = -2186261823595425534L;
 	private double salary;
-	
+
 	public Employee() {}
 
 	/**
@@ -25,6 +25,4 @@ public class Employee extends Person{
 	public void setSalary(double salary) {
 		this.salary = salary;
 	}
-	
-	
 }
