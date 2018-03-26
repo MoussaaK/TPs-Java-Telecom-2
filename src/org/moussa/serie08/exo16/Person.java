@@ -5,6 +5,7 @@ public class Person {
 	public String lastName;
 	public int age;
 	
+	public Person() {}
 	public Person(String firstName, String lastName) {
 		super();
 		this.firstName = firstName;
