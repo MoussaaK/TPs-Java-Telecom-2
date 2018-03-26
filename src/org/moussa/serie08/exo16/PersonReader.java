@@ -44,7 +44,6 @@ public class PersonReader {
 				//System.out.println(read);
 				people.add(byteToPerson.apply(tmpArray));
 
-				//numberOfPerson--;
 			}
 		} catch (EOFException e) {
 			
@@ -58,6 +57,6 @@ public class PersonReader {
 	}
 
 	private int readArray(DataInputStream dis, int nbByte, byte[] tmpArray) throws IOException {
-		return dis.read(tmpArray, 0,nbByte);
+		return dis.read(tmpArray, 0, nbByte);
 	}
 }
