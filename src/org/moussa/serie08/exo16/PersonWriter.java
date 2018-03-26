@@ -10,46 +10,64 @@ import java.util.List;
 import java.util.function.Function;
 
 public class PersonWriter {
-	
 	Function<Person, byte[]> personToBytes = person -> {
-		byte[] byteArray = null;
-		try (ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			 DataOutputStream dos = new DataOutputStream(baos);) {
-			
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		DataOutputStream dos = new DataOutputStream(baos);
+		try {
 			dos.writeInt(person.getAge());
 			dos.writeUTF(person.getLastName());
 			dos.writeUTF(person.getFirstName());
-			byteArray = baos.toByteArray();
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-		return byteArray;
+		return baos.toByteArray();
 	};
-	
-	public void writeBinaryFields(List<Person> people, String fileName, int number) {
+
+
+	public void writeBinaryFields(List<Person> people, String fileName) {
 		File file = new File(fileName);
 		try (FileOutputStream fos = new FileOutputStream(file, true);
-			 BufferedOutputStream bos = new BufferedOutputStream(fos);) {
-			bos.write(number);
+				BufferedOutputStream bos = new BufferedOutputStream(fos);) {
+			bos.write(people.size());
 			/*for (Person person : people) {
 				byte [] bytes = personToBytes.apply(person);
 				bos.write(bytes);
 				//bos.flush(); handled by try-with-resources pattern
 			}*/
 			people.stream().map(personToBytes)
-						   .forEach(person -> {
-							   try {
-								   bos.write(person);
-							   } catch (IOException e) {
-								   // TODO Auto-generated catch block
-								   e.printStackTrace();
-							   }});
-			
+				  .forEach(person -> {
+					try {
+						bos.write(person);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}});
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+	/*
+	public static void main(String[] args) {
+		Function<Person, byte[]> personToBytes = person -> {
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			DataOutputStream dos = new DataOutputStream(baos);
+			try {
+				dos.writeInt(person.getAge());
+				dos.writeUTF(person.getLastName());
+				dos.writeUTF(person.getFirstName());
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+			return baos.toByteArray();
+		};
+
+		Person p = new Person("nom","prenom",12);
+		System.out.println(personToBytes.apply(p));
+	}
+	*/
+
 }
