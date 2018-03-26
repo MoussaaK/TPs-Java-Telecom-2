@@ -16,7 +16,7 @@ public class Main {
 		people.add(new Person("Jeff", "Bezos", 54));
 		people.add(new Person("Andi", "Rubin", 55));
 		
-		pw.writeBinaryFields(people, fileName, people.size());
+		pw.writeBinaryFields(people, fileName);
 		List<Person> peopleRead = pr.readBinaryFields(fileName);
 		System.out.println("After reading the file... ");
 		System.out.println("Those People were found inside :");
