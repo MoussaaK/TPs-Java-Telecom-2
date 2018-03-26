@@ -1,6 +1,5 @@
 package org.moussa.serie08.exo16;
 
-import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -14,9 +13,9 @@ public class PersonWriter {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		DataOutputStream dos = new DataOutputStream(baos);
 		try {
-			dos.writeInt(person.getAge());
 			dos.writeUTF(person.getLastName());
 			dos.writeUTF(person.getFirstName());
+			dos.writeInt(person.getAge());
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -27,9 +26,8 @@ public class PersonWriter {
 
 	public void writeBinaryFields(List<Person> people, String fileName) {
 		File file = new File(fileName);
-		try (FileOutputStream fos = new FileOutputStream(file, true);
-				DataOutputStream dos = new DataOutputStream(fos);
-				BufferedOutputStream bos = new BufferedOutputStream(fos);) {
+		try (FileOutputStream fos = new FileOutputStream(file);
+				DataOutputStream dos = new DataOutputStream(fos);) {
 			dos.writeInt(people.size());
 			/*for (Person person : people) {
 				byte [] bytes = personToBytes.apply(person);
@@ -37,13 +35,14 @@ public class PersonWriter {
 				//bos.flush(); handled by try-with-resources pattern
 			}*/
 			people.stream().map(personToBytes)
-				  .forEach(person -> {
-					try {
-						bos.write(person);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}});
+			.forEach(arrayPerson -> {
+				try {
+					dos.writeInt(arrayPerson.length);
+					dos.write(arrayPerson);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}});
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -69,6 +68,6 @@ public class PersonWriter {
 		Person p = new Person("nom","prenom",12);
 		System.out.println(personToBytes.apply(p));
 	}
-	*/
+	 */
 
 }
