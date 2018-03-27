@@ -75,4 +75,8 @@ Question 2 :
 Question 6 :
 	La classe est **Person**
 	
+##Exercice 18 (Série 09)	
+
+Question 1 :
+	Il faut que la classe peut être instancier par cette méthode si et seulement si elle a un **constructeur vide explicite**
 	
