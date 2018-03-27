@@ -1,0 +1,12 @@
+# Ceci est une ligne de commentaires
+bean.name=p1
+p1.class=org.moussa.serie09.exo18.Person
+p1.lastName=Surcouf
+p1.firstName=Robert
+p1.age=32
+bean.name=p2
+p2.class=org.moussa.serie09.exo18.Employee
+p1.lastName=Zidane
+p2.firstName=Zinedine
+p2.age=45
+P2.salary=12000
