@@ -6,8 +6,7 @@ public class Person implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -7137147978184877106L;
-	
+	private static final long serialVersionUID = -777948766728355497L;
 	public String firstName;
 	public String lastName;
 	public int age;
@@ -49,6 +48,18 @@ public class Person implements Serializable {
 		return age;
 	}
 	
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
