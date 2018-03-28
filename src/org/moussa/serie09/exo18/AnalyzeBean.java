@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -36,7 +37,9 @@ public class AnalyzeBean {
 		return obj;
 	}
 
-	private Predicate<String> isValidProperties = string -> string.startsWith("set") || string.startsWith("get");
+	private Predicate<String> isValidProperties = string -> string.startsWith("set") 
+															|| string.startsWith("get")
+															|| string.startsWith("is");
 
 	public List<String> getProperties(Object o) {
 
@@ -127,16 +130,45 @@ public class AnalyzeBean {
 		}
 	}
 	
-	Predicate<String> isComment = string -> string.startsWith("#");
+	Predicate<String> isNotComment = string -> !string.startsWith("#");
+	Function<String, String> getFieldInRange = line -> line.substring(line.indexOf('.') + 1, line.indexOf('='));
 	public List<Object> read(String fileName) {
 		File file = new File(fileName);
 		Class<?> clazz = null;
+		Object p1 = null, p2 = null;
 		try(FileReader fr = new FileReader(file);
 			BufferedReader br = new BufferedReader(fr);) {
 			for(int i=0; i< 11; i++) {
 				String line = br.readLine();
-				if(!isComment.test(line)) {
-					System.out.println(line);
+				if(isNotComment.test(line)) {
+					//System.out.println(line);
+					if(line.startsWith("p1.class")) {
+						String className = line.substring(line.indexOf("=") + 1);
+						//System.out.println(className);
+						try {
+							
+							clazz = Class.forName(className);
+							p1 = clazz.newInstance();
+							p2 = clazz.newInstance();
+							//System.out.println("Hereeeeeeee");
+						} catch (ClassNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (InstantiationException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+					} else if(line.startsWith("p1")) {
+						String fieldName = getFieldInRange.apply(line);
+						//System.out.println(fieldName);
+						Field field = clazz.getField(fieldName);
+						//String value = (String) field.get();
+						//System.out.println(value);
+					}
 				}
 			}
 				
@@ -146,6 +178,15 @@ public class AnalyzeBean {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchFieldException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
