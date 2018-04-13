@@ -171,7 +171,7 @@ public class AnalyzeBean {
 								field.set(tmpBean, Integer.parseInt(value));
 							}
 						}
-						
+
 					}
 					if(!objects.contains(tmpBean) && tmpBean != null)
 						objects.add(tmpBean);
@@ -179,59 +179,10 @@ public class AnalyzeBean {
 				}
 				newBr.close();
 			}
-			/*FileReader newFr = new FileReader(file);
-			BufferedReader newBr = new BufferedReader(newFr);
-			String line = newBr.readLine();
-			while(line != null) {
-				if(isNotComment.test(line)) {
-					if(line.startsWith("p1.class")) {
-						String className = line.substring(line.indexOf("=") + 1);
-						try {
-							clazz = Class.forName(className);
-							p1 = clazz.newInstance();
-						} catch (ClassNotFoundException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} 
-					} else if(line.startsWith("p1")) {
-						String fieldName = fieldNameInRange.apply(line);
-						Field field = clazz.getField(fieldName);
-						String value = line.substring(line.indexOf("=") + 1);
-						if(field.getType() == String.class) {
-							field.set(p1, value);
-						} else if (field.getType() == int.class) {
-							field.set(p1, Integer.parseInt(value));
-						}
-					} else if(line.startsWith("p2.class")) {
-						String className = line.substring(line.indexOf("=") + 1);
-						try {
-							clazz = Class.forName(className);
-							p2 = clazz.newInstance();
-						} catch (ClassNotFoundException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					} else if(line.startsWith("p2")) {
-						String fieldName = fieldNameInRange.apply(line);
-						Field field = clazz.getField(fieldName);
-						String value = line.substring(line.indexOf("=") + 1);
-						if(field.getType() == String.class) {
-							field.set(p2, value);
-						} else if (field.getType() == int.class) {
-							field.set(p2, Integer.parseInt(value));
-						}
-					}
-				}
-				
-				line = newBr.readLine();
-			}
-			newBr.close();*/
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		/*objects.add(p1);
-		objects.add(p2);*/
 
 		return objects;
 	}
