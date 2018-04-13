@@ -2,7 +2,8 @@ package org.moussa.serie09.exo18;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IllegalAccessException, ClassNotFoundException,
+												  InstantiationException, NoSuchFieldException, SecurityException {
 		// TODO Auto-generated method stub
 		
 		AnalyzeBean bean = new AnalyzeBean();
@@ -24,6 +25,6 @@ public class Main {
 		bean.set(person, "Age", 20);
 		
 		System.out.println(person);
-		bean.read(fileName);
+		System.out.println(bean.read(fileName));
 	}
 }
