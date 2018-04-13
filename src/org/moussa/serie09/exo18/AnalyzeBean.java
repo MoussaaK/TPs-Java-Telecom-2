@@ -2,7 +2,6 @@ package org.moussa.serie09.exo18;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -20,16 +19,10 @@ public class AnalyzeBean {
 		return o.getClass();
 	}
 
-	public Object getInstance(String className) {
+	public Object getInstance(String className) throws InstantiationException, IllegalAccessException {
 		Object obj = null;
 		try {
 			obj =  Class.forName(className).newInstance();
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -96,7 +89,7 @@ public class AnalyzeBean {
 		}
 		return null;
 	};
-	
+
 	public void set(Object bean, String property, Object value) {
 		Method setter = null;
 		Class<?> classType = null;
@@ -106,7 +99,7 @@ public class AnalyzeBean {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+
 		try {
 			setter = this.getClassName(bean).getMethod(nameToSetterName.apply(property), classType);
 		} catch (NoSuchMethodException e) {
@@ -129,68 +122,71 @@ public class AnalyzeBean {
 			e.printStackTrace();
 		}
 	}
-	
+
 	Predicate<String> isNotComment = string -> !string.startsWith("#");
-	Function<String, String> getFieldInRange = line -> line.substring(line.indexOf('.') + 1, line.indexOf('='));
-	public List<Object> read(String fileName) {
+	Predicate<String> isNotEmpty = string -> !string.isEmpty();
+	Function<String, String> getFieldNameInRange = line -> line.substring(line.indexOf('.') + 1, line.indexOf('='));
+	Function<String, String> getBeanName = line -> line.substring(line.indexOf("bean.name=") + 1);
+
+	public List<Object> read(String fileName) throws IllegalAccessException, ClassNotFoundException,
+													 InstantiationException, NoSuchFieldException,
+													 SecurityException {
 		File file = new File(fileName);
 		Class<?> clazz = null;
 		Object p1 = null, p2 = null;
+		List<Object> objects = new ArrayList<>();
 		try(FileReader fr = new FileReader(file);
-			BufferedReader br = new BufferedReader(fr);) {
-			for(int i=0; i< 11; i++) {
-				String line = br.readLine();
+				BufferedReader br = new BufferedReader(fr);) {
+			String line = br.readLine();
+			while(line != null) {
 				if(isNotComment.test(line)) {
-					//System.out.println(line);
 					if(line.startsWith("p1.class")) {
 						String className = line.substring(line.indexOf("=") + 1);
-						//System.out.println(className);
 						try {
-							
 							clazz = Class.forName(className);
 							p1 = clazz.newInstance();
-							p2 = clazz.newInstance();
-							//System.out.println("Hereeeeeeee");
 						} catch (ClassNotFoundException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
-						} catch (InstantiationException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (IllegalAccessException e) {
+						} 
+					} else if(line.startsWith("p1")) {
+						String fieldName = getFieldNameInRange.apply(line);
+						Field field = clazz.getField(fieldName);
+						String value = line.substring(line.indexOf("=") + 1);
+						if(field.getType() == String.class) {
+							field.set(p1, value);
+						} else if (field.getType() == int.class) {
+							field.set(p1, Integer.parseInt(value));
+						}
+					} else if(line.startsWith("p2.class")) {
+						String className = line.substring(line.indexOf("=") + 1);
+						try {
+							clazz = Class.forName(className);
+							p2 = clazz.newInstance();
+						} catch (ClassNotFoundException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						
-					} else if(line.startsWith("p1")) {
-						String fieldName = getFieldInRange.apply(line);
-						//System.out.println(fieldName);
+					} else if(line.startsWith("p2")) {
+						String fieldName = getFieldNameInRange.apply(line);
 						Field field = clazz.getField(fieldName);
-						//String value = (String) field.get();
-						//System.out.println(value);
+						String value = line.substring(line.indexOf("=") + 1);
+						if(field.getType() == String.class) {
+							field.set(p2, value);
+						} else if (field.getType() == int.class) {
+							field.set(p2, Integer.parseInt(value));
+						}
 					}
 				}
+				line = br.readLine();
 			}
-				
-				
-			
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (NoSuchFieldException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-		
-		return null;
+		objects.add(p1);
+		objects.add(p2);
+
+		return objects;
 	}
 }
