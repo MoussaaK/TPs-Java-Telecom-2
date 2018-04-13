@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class AnalyzeBean {
 
@@ -124,20 +125,62 @@ public class AnalyzeBean {
 	}
 
 	Predicate<String> isNotComment = string -> !string.startsWith("#");
+	Predicate<String> isBean = string -> string.startsWith("bean");
 	Predicate<String> isNotEmpty = string -> !string.isEmpty();
-	Function<String, String> getFieldNameInRange = line -> line.substring(line.indexOf('.') + 1, line.indexOf('='));
-	Function<String, String> getBeanName = line -> line.substring(line.indexOf("bean.name=") + 1);
+	Function<String, String> fieldNameInRange = line -> line.substring(line.indexOf('.') + 1, line.indexOf('='));
+	Function<String, String> beanName = line -> line.substring(line.indexOf("bean.name=") + "bean.name=".length());
 
 	public List<Object> read(String fileName) throws IllegalAccessException, ClassNotFoundException,
 													 InstantiationException, NoSuchFieldException,
 													 SecurityException {
 		File file = new File(fileName);
 		Class<?> clazz = null;
-		Object p1 = null, p2 = null;
+		//Object p1 = null, p2 = null;
 		List<Object> objects = new ArrayList<>();
 		try(FileReader fr = new FileReader(file);
 				BufferedReader br = new BufferedReader(fr);) {
-			String line = br.readLine();
+			
+			List<String> beansName = br.lines().filter(isNotEmpty.and(isNotComment)
+																 .and(isBean))
+											   .map(beanName).collect(Collectors.toList());
+			//System.out.println(beansName);
+			for (String beanName : beansName) {
+				FileReader newFr = new FileReader(file);
+				BufferedReader newBr = new BufferedReader(newFr);
+				String line = newBr.readLine();
+				Object tmpBean = null;
+				while(line != null) {
+					if(isNotComment.test(line)) {
+						if(line.startsWith(beanName + ".class")) {
+							String className = line.substring(line.indexOf("=") + 1);
+							try {
+								clazz = Class.forName(className);
+								tmpBean = clazz.newInstance();
+							} catch (ClassNotFoundException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} 
+						} else if(line.startsWith(beanName)) {
+							String fieldName = fieldNameInRange.apply(line);
+							Field field = clazz.getField(fieldName);
+							String value = line.substring(line.indexOf("=") + 1);
+							if(field.getType() == String.class) {
+								field.set(tmpBean, value);
+							} else if (field.getType() == int.class) {
+								field.set(tmpBean, Integer.parseInt(value));
+							}
+						}
+						
+					}
+					if(!objects.contains(tmpBean) && tmpBean != null)
+						objects.add(tmpBean);
+					line = newBr.readLine();
+				}
+				newBr.close();
+			}
+			/*FileReader newFr = new FileReader(file);
+			BufferedReader newBr = new BufferedReader(newFr);
+			String line = newBr.readLine();
 			while(line != null) {
 				if(isNotComment.test(line)) {
 					if(line.startsWith("p1.class")) {
@@ -150,7 +193,7 @@ public class AnalyzeBean {
 							e.printStackTrace();
 						} 
 					} else if(line.startsWith("p1")) {
-						String fieldName = getFieldNameInRange.apply(line);
+						String fieldName = fieldNameInRange.apply(line);
 						Field field = clazz.getField(fieldName);
 						String value = line.substring(line.indexOf("=") + 1);
 						if(field.getType() == String.class) {
@@ -168,7 +211,7 @@ public class AnalyzeBean {
 							e.printStackTrace();
 						}
 					} else if(line.startsWith("p2")) {
-						String fieldName = getFieldNameInRange.apply(line);
+						String fieldName = fieldNameInRange.apply(line);
 						Field field = clazz.getField(fieldName);
 						String value = line.substring(line.indexOf("=") + 1);
 						if(field.getType() == String.class) {
@@ -178,14 +221,16 @@ public class AnalyzeBean {
 						}
 					}
 				}
-				line = br.readLine();
+				
+				line = newBr.readLine();
 			}
+			newBr.close();*/
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		objects.add(p1);
-		objects.add(p2);
+		/*objects.add(p1);
+		objects.add(p2);*/
 
 		return objects;
 	}
