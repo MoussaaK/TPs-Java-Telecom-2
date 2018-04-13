@@ -145,6 +145,7 @@ public class AnalyzeBean {
 											   .map(beanName).collect(Collectors.toList());
 			//System.out.println(beansName);
 			for (String beanName : beansName) {
+				//End of file already reached, so need another fr and br or mark and reset the BufferedReader
 				FileReader newFr = new FileReader(file);
 				BufferedReader newBr = new BufferedReader(newFr);
 				String line = newBr.readLine();
