@@ -33,7 +33,7 @@ public class AnalyzeBean {
 		return obj;
 	}
 
-	private Predicate<String> isValidProperties = string -> string.startsWith("set") 
+	private Predicate<String> isValidProperty = string -> string.startsWith("set") 
 															|| string.startsWith("get")
 															|| string.startsWith("is");
 
@@ -42,20 +42,20 @@ public class AnalyzeBean {
 		List<String> propertiesNames = new ArrayList<>();
 		Class<? extends Object> className = o.getClass();
 		for (Method m : className.getMethods()) {
-			if(isValidProperties.test(m.getName()))
+			if(isValidProperty.test(m.getName()))
 				propertiesNames.add(m.getName());
 		}
 		return propertiesNames;
 	}
 
-	private Function<String, String> nameToGetterName = s -> s = "get" + String.valueOf(s.charAt(0)).toUpperCase() + s.substring(1);
+	private Function<String, String> toGetterName = s -> s = "get" + String.valueOf(s.charAt(0)).toUpperCase() + s.substring(1);
 
 	public Object get(Object bean, String property) {
 		Method getter = null;
 		Object obj = null;
 
 		try {
-			getter = this.getClassName(bean).getMethod(nameToGetterName.apply(property));
+			getter = this.getClassName(bean).getMethod(toGetterName.apply(property));
 		} catch (NoSuchMethodException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -79,10 +79,10 @@ public class AnalyzeBean {
 		return obj;
 	}
 
-	private Function<String, String> nameToSetterName = s -> s = "set" + String.valueOf(s.charAt(0)).toUpperCase() + s.substring(1);
+	private Function<String, String> toSetterName = s -> s = "set" + String.valueOf(s.charAt(0)).toUpperCase() + s.substring(1);
 	private BiFunction<Object, String, Class<?>> getType = (bean, property) -> {
 		try {
-			return this.getClassName(bean).getMethod(nameToGetterName.apply(property))
+			return this.getClassName(bean).getMethod(toGetterName.apply(property))
 										  .getReturnType();
 		} catch (NoSuchMethodException e) {
 			// TODO Auto-generated catch block
@@ -105,7 +105,7 @@ public class AnalyzeBean {
 		}
 
 		try {
-			setter = this.getClassName(bean).getMethod(nameToSetterName.apply(property), classType);
+			setter = this.getClassName(bean).getMethod(toSetterName.apply(property), classType);
 		} catch (NoSuchMethodException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -192,6 +192,12 @@ public class AnalyzeBean {
 		return objects;
 	}
 	
+	/*private static int indexOfGet = "get".length();
+	private Function<String, String> getterToPropertyName = s -> s = String.valueOf(s.charAt(indexOfGet))
+																		   .toLowerCase() 
+																   + s.substring(indexOfGet+1);
+	*/
+	
 	public void write(List<Object> beans, String fileName) {
 		File file = new File(fileName);
 		try (FileWriter fr = new FileWriter(file);
@@ -202,9 +208,16 @@ public class AnalyzeBean {
 				++beanNumber;
 				String beanName = "p" + beanNumber;
 				String className = this.getClassName(bean).getName();
-
+				/*List<String> properties = this.getProperties(bean).stream()
+																  .distinct()
+																  .collect(Collectors.toList());*/
 				bw.write("bean.name=" + beanName + "\n");
 				bw.write(beanName + ".class=" + className + "\n");
+				/*for (String property : properties) {
+					String propertyName = getterToPropertyName.apply(property);
+					System.out.println(getterToPropertyName.apply(property));
+					bw.write(beanName + "." + propertyName + "=" + this.get(bean, propertyName) + "\n");
+				}*/
 				bw.write(beanName + ".lastName=" + this.get(bean, "lastName") + "\n");
 				bw.write(beanName + ".firstName=" + this.get(bean, "firstName") + "\n");
 				bw.write(beanName + ".age=" + this.get(bean, "age") + "\n");
