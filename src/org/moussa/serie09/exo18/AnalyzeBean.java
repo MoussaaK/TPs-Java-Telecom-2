@@ -1,8 +1,10 @@
 package org.moussa.serie09.exo18;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -80,7 +82,8 @@ public class AnalyzeBean {
 	private Function<String, String> nameToSetterName = s -> s = "set" + String.valueOf(s.charAt(0)).toUpperCase() + s.substring(1);
 	private BiFunction<Object, String, Class<?>> getType = (bean, property) -> {
 		try {
-			return this.getClassName(bean).getMethod(nameToGetterName.apply(property)).getReturnType();
+			return this.getClassName(bean).getMethod(nameToGetterName.apply(property))
+										  .getReturnType();
 		} catch (NoSuchMethodException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -169,6 +172,8 @@ public class AnalyzeBean {
 								field.set(tmpBean, value);
 							} else if (field.getType() == int.class) {
 								field.set(tmpBean, Integer.parseInt(value));
+							} else if (field.getType() == double.class) {
+								field.set(tmpBean, Double.parseDouble(value));
 							}
 						}
 
@@ -185,5 +190,31 @@ public class AnalyzeBean {
 		}
 
 		return objects;
+	}
+	
+	public void write(List<Object> beans, String fileName) {
+		File file = new File(fileName);
+		try (FileWriter fr = new FileWriter(file);
+				BufferedWriter bw = new BufferedWriter(fr);) {
+			bw.write("# Ceci est une ligne de commentaires\n");
+			int beanNumber = 0;
+			for (Object bean : beans) {
+				++beanNumber;
+				String beanName = "p" + beanNumber;
+				String className = this.getClassName(bean).getName();
+
+				bw.write("bean.name=" + beanName + "\n");
+				bw.write(beanName + ".class=" + className + "\n");
+				bw.write(beanName + ".lastName=" + this.get(bean, "lastName") + "\n");
+				bw.write(beanName + ".firstName=" + this.get(bean, "firstName") + "\n");
+				bw.write(beanName + ".age=" + this.get(bean, "age") + "\n");
+
+				if(bean instanceof Employee)
+					bw.write(beanName + ".salary=" + this.get(bean, "salary") + "\n");
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
