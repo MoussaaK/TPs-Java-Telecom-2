@@ -1,21 +1,21 @@
-#Réponse aux questions#
+#							RÃ©ponse aux questions#
 
 * Question 7 :
-	On surcharge la méthode **toString** pour quelle retourne nom pas la réference de l'objet instancié mais pluôt le **nom**, **prenom** et **salaire** donné à l'objet lors de son instanciation.
+	On surcharge la mÃ©thode **toString** pour quelle retourne nom pas la rÃ©ference de l'objet instanciÃ© mais plutÃ´t le **nom**, **prenom** et **salaire** donnÃ©s Ã  l'objet lors de son instanciation.
 
 * Question 8 :
-	Pour comparer deux instances de Marin on utilise la méthode **equals**
+	Pour comparer deux instances de Marin on utilise la mÃ©thode **equals**
 
 * Question 9 :
-	m1 et m2 sont égales par contre elles sont différentes de m3
+	m1 et m2 sont Ã©gales par contre elles sont diffÃ©rentes de m3
 
 * Question 10 :
-	Les hashCodes de m1 et m2 doivent être égales car **deux Objets sont égales au sens de equals s'ils ont mêmes hashCodes**; m3 a un hashCode différent de celui de m1 ou m2
+	Les hashCodes de m1 et m2 doivent Ãªtre Ã©gales car **deux Objets sont Ã©gales au sens de equals s'ils ont mÃªmes hashCodes**; m3 a un hashCode diffÃ©rent de celui de m1 ou m2
 
 * Question 11 :
-	* Java utilise les **interfaces** pour réaliser ce genre de comparaison
+	* Java utilise les **interfaces** pour rÃ©aliser ce genre de comparaison
 
-##Exercice 14 (Serie 06)
+##Exercice 14 (SÃ©rie 06)
 
 
 * Question 1 :
@@ -28,55 +28,57 @@
 	Le mot **bonjour** apparait **7 fois**
 	
 * Question 6
-	les caractères suivants ne sont pas des lettres : **[,'.;:?!16<>2570849_*\\-]**
+	les caractÃ¨res suivants ne sont pas des lettres : **[,'.;:?!16<>2570849_*\\-]**
 	
 * Question 7 :
-	Germinal comporte **177183 mots**, **13933 mots différents**
+	Germinal comporte **177183 mots**, **13933 mots diffÃ©rents**
 	
 * Question 8 :
-	* La longeur du **mot le plus long** utiiisé est **19**
+	* La longeur du **mot le plus long** utiiisÃ© est **19**
 	* Germinal contient 2 mots de cette longeur
-	* Ces mots sont : "revolutionnairement" et "proportionnellement"
+	* Ces mots sont : **"revolutionnairement"** et **"proportionnellement"**
 	
 * Question 9 :
-	* La longueur de mot la plus **fréquente** est **7**
+	* La longueur de mot la plus **frÃ©quente** est **7**
   	* **2403** mots ont cette longeur
   	
 * Question 10 :
  	* La longeur du mot **median** est **10**
   	* Et **1347** mots ont cette longeur.
 
-##Exercice 15 (Série 07)
+##Exercice 15 (SÃ©rie 07)
 
 * Question 1 :
-	* L'interface Stream étend **AutoClosable** => AutoClosable est la superinterface de stream
-	* On en deduit que la fermeture d'un stream ouvert sur un fichier ne necessite pas un apple à la méthode close
+	* L'interface Stream Ã©tend **AutoClosable** => AutoClosable est la superinterface de stream
+	* On en deduit que la fermeture d'un stream ouvert sur un fichier ne necessite pas un apple Ã© la mÃ©thode close
 	
 * Question 2 : 
 
-##Exercice 16 (Série 08)
+##Exercice 16 (SÃ©rie 08)
 
 * Question 1 :
-	* La Classe **ByteArrayOutputStream** permet de créer de sbuffer en mémoire
-	* On doit utiliser le flux DataOutputStream pour écrire des types primitifs en Java
+	* La Classe **ByteArrayOutputStream** permet de crÃ©er de sbuffer en mÃ©moire
+	* On doit utiliser le flux DataOutputStream pour Ã©crire des types primitifs en Java
 
 * Question 3 : 
-	* Non on a besoin de relire tableau d'objet par tableau d'objet
-	* On a besoin du nombre d'instance de Person dans le fichier pour lire correctement le bon nombre de person
+	* Non on n'a pas besoin de relire le tableau objet par objet
+	* On a besoin du **nombre d'instances** de Person dans le fichier pour lire correctement le bon nombre de person
 
-##Exercice 17 (Série 08)		
+##Exercice 17 (SÃ©rie 08)		
 	
 * Question 1 :
-	On doit utiliser le flux **ObjectOutputStream** pour écrire des Objets Java dans des fichiers binaires
+	On doit utiliser le flux **ObjectOutputStream** pour Ã©crire des Objets Java dans des fichiers binaires
 
 * Question 2 :
-	On doit rendre la classe Person Seriazable, en le faisant implémenter Serializable
+	On doit rendre la classe Person Seriazable, en le faisant implÃ©menter l'interface  **Serializable**
 	
 * Question 6 :
 	La classe est **Person**
 	
-##Exercice 18 (Série 09)	
+##Exercice 18 (SÃ©rie 09)	
 
-* Question 1 :
-	Il faut que la classe peut être instancier par cette méthode si et seulement si elle a un **constructeur vide explicite**
+* Question 2 :
+	La classe peut Ã©tre instanciÃ©e par cette mÃ©thode si et seulement si elle a un **constructeur vide explicite**
 	
+* Question 4 :
+	Cette mÃ©thode doit retourner un **Object**
